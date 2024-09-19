@@ -6,12 +6,15 @@ from validate_resource_types import ResourceTypeValidator
 class DataValidationService:
 
     def __init__(self,json_sample_data, resource_type_config=None,
-                 patient_schema=None,encounter_schema=None,address_schema=None):
+                 patient_schema=None,encounter_schema=None,
+                 address_schema=None, phone_schema=None
+                 ):
         self.json_sample_data = json_sample_data
         self.resource_type_config = resource_type_config
         self.patient_schema = self.convert_schema_field_types(patient_schema)
         self.encounter_schema = self.convert_schema_field_types(encounter_schema)
         self.address_schema = self.convert_schema_field_types(address_schema)
+        self.phone_schema = self.convert_schema_field_types(phone_schema)
 
     def convert_schema_field_types(self, schema):
         """Convert the string representation of types in the schema to actual Python types."""
@@ -39,35 +42,45 @@ class DataValidationService:
 
         return schema
 
-
     def validate_individual_data(self, json_data):
         errors = []
 
-        # Check for required fields
-        if json_data.get('Patient') is not None:
-            patient_required_fields = [field for field, attributes in self.patient_schema.items() if attributes['required']]
-            for field in patient_required_fields:
-                if field not in json_data["Patient"][0] :
-                    errors.append(f"Missing field: {field}")
+        # Define a dictionary mapping each section to its corresponding schema
+        section_mapping = {
+            "Patient": self.patient_schema,
+            "Encounter": self.encounter_schema,
+            "PatientAddress": self.address_schema,
+            "PatientPhone": self.phone_schema
+        }
 
-        if json_data.get('Encounter') is not None:
-            patient_required_fields = [field for field, attributes in self.encounter_schema.items() if attributes['required']]
-            for field in patient_required_fields:
-                if field not in json_data["Encounter"][0] :
-                    errors.append(f"Missing field: {field}")
+        def validate_fields(json_section, schema, section_name):
+            """Helper function to validate required fields in a given JSON section."""
+            if not json_section:  # Skip if section is None or empty
+                return
+            required_fields = [field for field, attributes in schema.items() if attributes['required']]
+            errors.extend(
+                f"Missing {section_name} required field: {field}"
+                for field in required_fields
+                for each_item in json_section
+                if field not in each_item
+            )
 
-        # Validate PatientAddress fields
-        address_required_fields = [field for field, attributes in self.address_schema.items() if attributes['required']]
-
-        patient_addresses = json_data["Patient"][0]["PatientAddress"]
-
-        if patient_addresses is not None:
-            for field in address_required_fields:
-                if field not in patient_addresses:
-                    errors.append(f"Missing Patient Addresses required field: {field}")
+        # Loop through each section and validate
+        for section, schema in section_mapping.items():
+            if section == "Patient" and "Patient" in json_data:
+                validate_fields(json_data["Patient"], schema, section)
+            elif section == "Encounter" and "Encounter" in json_data:
+                validate_fields(json_data["Encounter"], schema, section)
+            else:
+                # Validate nested sections like PatientAddress and PatientPhone
+                if "Patient" in json_data:
+                    nested_section = json_data["Patient"][0].get(section)
+                    if nested_section is None:
+                        errors.append(f"{section} is null.")
+                    else:
+                        validate_fields(nested_section, schema, section)
 
         return errors
-
 
     #when use this json validation service, here is how you can call it from your program
     def json_validation(address_schema, encounter_schema, json_sample_data, patient_schema, resource_type_config):
@@ -111,18 +124,22 @@ def validate_json_data_against_schema(json_sample_data):
     patient_schema_file = os.path.join(current_directory, '../schema/patient-config-schema.json')
     encounter_schema_file = os.path.join(current_directory, '../schema/encounter-schema-config.json')
     address_schema_file = os.path.join(current_directory, '../schema/patient-address-schema-config.json')
+    phone_schema_file = os.path.join(current_directory, '../schema/patient-phone-config-schema.json')
 
     resource_type_config = load_json_schema_data_from_file(resource_type_config_file_path)
     patient_schema = load_json_schema_data_from_file(patient_schema_file)
     encounter_schema = load_json_schema_data_from_file(encounter_schema_file)
     address_schema = load_json_schema_data_from_file(address_schema_file)
+    phone_schema = load_json_schema_data_from_file(phone_schema_file)
 
     # Initialize the validation services
     validator = DataValidationService(json_sample_data,
                                       resource_type_config=resource_type_config,
                                       patient_schema=patient_schema,
                                       encounter_schema=encounter_schema,
-                                      address_schema=address_schema)
+                                      address_schema=address_schema,
+                                      phone_schema=phone_schema
+                                      )
 
     resource_type_validator = ResourceTypeValidator(resource_type_config)
 

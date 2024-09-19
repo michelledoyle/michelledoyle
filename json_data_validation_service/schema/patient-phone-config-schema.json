@@ -1,0 +1,18 @@
+{
+  "PhoneID": {
+    "type": "string",
+    "required": true
+  },
+  "PatientID": {
+    "type": "string",
+    "required": true
+  },
+  "PhoneNumber": {
+    "type": "string",
+    "required": true
+  },
+  "PhoneType": {
+    "type": "string",
+    "required": false
+  }
+}

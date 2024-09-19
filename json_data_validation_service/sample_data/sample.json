@@ -5,15 +5,25 @@
       "FirstName": "Tom",
       "LastName": "Chen",
       "Gender": "Male",
-      "PatientAddress": {
-        "AddressID": "abc12345",
+      "PatientAddress": [
+        {
+        "AddressID": "address112233",
+
+        "AddressLine2": "Apt 4B",
+        "City": "Wichita",
+        "State": "KS",
+        "ZipCode": "67207"
+      },
+       {
+        "AddressID": "address6699",
         "PatientID": "123e4567",
         "AddressLine1": "123 Main St",
         "AddressLine2": "Apt 4B",
         "City": "Springfield",
         "State": "IL",
         "ZipCode": "62704"
-      },
+      }
+      ],
       "PatientPhone": [
         {
           "PhoneID": "phone12345",
