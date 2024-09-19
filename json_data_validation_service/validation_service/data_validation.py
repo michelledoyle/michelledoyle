@@ -89,12 +89,12 @@ class DataValidationService:
         """Validate all patient entries in the provided JSON data."""
         errors = []
 
-        # # Check if 'Patients' key exists in the root of the JSON
+        # # Check if 'Patient' key exists in the root of the JSON
         # if 'Patients' not in json_data:
         #     errors.append("Missing 'Patients' key in the JSON.")
         #     return errors
 
-        patients = json_data['Patients']  # Extract the list of patients
+        patients = json_data['Patient']  # Extract the list of patients
 
         # Validate each patient in the list
         for i, patient_data in enumerate(patients):
@@ -169,7 +169,3 @@ def main():
         print(f"Resource type validation failed: {message}")
         raise ValueError(f"Resource type validation failed: {message}")
 
-
-# Entry point
-if __name__ == "__main__":
-    main()

@@ -1,5 +1,5 @@
 {
-  "Patients": [
+  "Patient": [
     {
       "PatientID": "123e4567",
       "FirstName": "Tom",
