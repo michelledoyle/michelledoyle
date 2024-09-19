@@ -1,7 +1,7 @@
 {
-  "Patients": [
+  "Patient": [
     {
-      "PatientID": "123e4567",
+      "PatientID": "123e4444",
       "FirstName": "Tom",
       "LastName": "Chen",
       "Gender": "Male",
@@ -45,7 +45,7 @@
       }
     }
   ],
-  "Encounters": [
+  "Encounter": [
     {
       "Encounter Bk": "123e4567",
       "Tenant Nm": "T223344",

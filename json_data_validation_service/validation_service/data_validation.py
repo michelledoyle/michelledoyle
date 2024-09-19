@@ -85,7 +85,7 @@ class DataValidationService:
     def validate_all_patients_in_json(self, json_data):
         """Validate all patient entries in the provided JSON data."""
         errors = []
-        patients = json_data['Patients']  # Extract the list of patients
+        patients = json_data['Patient']  # Extract the list of patients
 
         # Validate each patient in the list
         for i, patient_data in enumerate(patients):
