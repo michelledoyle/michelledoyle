@@ -78,45 +78,14 @@ class DataValidationService:
 
         return errors
 
-    # def validate_data_against_schema(self, data, schema, is_address=False):
-    #     """Validate the provided data against the given schema, handling both patient and address data."""
-    #     errors = []
-    #     for field, rules in schema.items():
-    #         # Check if required field is present
-    #         if rules.get("required") and field not in data:
-    #             errors.append(f"Missing required field: {field}")
-    #             continue
-    #
-    #         # If field exists, validate its type
-    #         if field in data:
-    #             value = data[field]
-    #             expected_type = rules["type"]
-    #             if not isinstance(value, expected_type):
-    #                 errors.append(
-    #                     f"Field '{field}' has wrong type. Expected {expected_type.__name__}, got {type(value).__name__}")
-    #
-    #             # Validate nested objects, including PatientAddress
-    #             if expected_type == dict and "properties" in rules:
-    #                 if field == "PatientAddress" and is_address is False:
-    #                     # Use address schema for PatientAddress validation
-    #                     nested_errors = self.validate_data_against_schema(value, self.address_schema, is_address=True)
-    #                 else:
-    #                     # Validate regular nested objects
-    #                     nested_errors = self.validate_data_against_schema(value, rules["properties"])
-    #
-    #                 if nested_errors:
-    #                     errors.append(f"Errors in nested field '{field}':")
-    #                     errors.extend(nested_errors)
-    #     return errors
-
-    def validate_individual_patient_data(self, patient_data):
-        """Validate individual patient data using the patient schema."""
-        return self.validate_data_against_schema(patient_data, self.patient_schema)
+    # def validate_individual_patient_data(self, patient_data):
+    #     """Validate individual patient data using the patient schema."""
+    #     return self.validate_data_against_schema(patient_data, self.patient_schema)
 
     def validate_all_patients_in_json(self, json_data):
         """Validate all patient entries in the provided JSON data."""
         errors = []
-        patients = json_data['Patient']  # Extract the list of patients
+        patients = json_data['Patients']  # Extract the list of patients
 
         # Validate each patient in the list
         for i, patient_data in enumerate(patients):
