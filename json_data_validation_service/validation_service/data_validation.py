@@ -73,8 +73,7 @@ class DataValidationService:
 
         # Validate PatientAddress fields
         address_required_fields = [field for field, attributes in self.address_schema.items() if attributes['required']]
-        patient = json_data["Patient"]
-        # patient_addresses = patient.get('PatientAddress')
+
         patient_addresses = json_data["Patient"][0]["PatientAddress"]
 
         if patient_addresses is not None:
@@ -83,32 +82,6 @@ class DataValidationService:
                     errors.append(f"Missing Patient Addresses required field: {field}")
 
         return errors
-
-
-    # def validate_all_encounter_in_json(self, json_data):
-    #     """Validate all patient entries in the provided JSON data."""
-    #     errors = []
-    #     data = json_data['Encounter']  # Extract the list of patients
-    #
-    #     # Validate each patient in the list
-    #     for i, enc_data in enumerate(data):
-    #         errors = self.validate_individual_encounter_data(enc_data)
-    #         if errors:
-    #             errors.append(f"Errors for Encounter {i + 1}:")
-    #             errors.extend(errors)
-    #
-    #     return errors
-
-    # def validate_individual_encounter_data(self, patient_data):
-    #     en_errors = []
-    #
-    #     # Check for required fields
-    #     required_fields = [field for field, attributes in self.patient_schema.items() if attributes['required']]
-    #     for field in required_fields:
-    #         if field not in patient_data:
-    #             en_errors.append(f"Missing field: {field}")
-    #
-    #     return en_errors
 
 
     #when use this json validation service, here is how you can call it from your program
