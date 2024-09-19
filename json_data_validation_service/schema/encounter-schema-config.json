@@ -1,22 +1,22 @@
 {
   "Encounter Bk": {
-    "type": "str",
+    "type": "string",
     "required": true
   },
   "Tenant Nm": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "Source Nm": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "Patient Type": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "Encounter Num": {
-    "type": "str",
+    "type": "string",
     "required": true
   }
 }

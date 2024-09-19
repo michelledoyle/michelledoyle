@@ -1,22 +1,22 @@
 {
   "PatientID": {
-    "type": "str",
+    "type": "string",
     "required": true
   },
   "FirstName": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "LastName": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "AddressID": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "Gender": {
-    "type": "str",
+    "type": "string",
     "required": false
   }
 }

@@ -1,10 +1,11 @@
 import json
-import os
 from validate_resource_types import ResourceTypeValidator
 
 class DataValidationService:
 
-    def __init__(self, patient_schema,encounter_schema,address_schema):
+    def __init__(self,json_sample_data, resource_type_config, patient_schema, encounter_schema,address_schema):
+        self.json_sample_data = json_sample_data
+        self.resource_type_config = resource_type_config
         self.patient_schema = self.convert_schema_field_types(patient_schema)
         self.encounter_schema = self.convert_schema_field_types(encounter_schema)
         self.address_schema = self.convert_schema_field_types(address_schema)
@@ -41,14 +42,6 @@ class DataValidationService:
             process_schema_field(rules)
 
         return schema
-
-    def load_json_data_from_file(self, json_file_path):
-        """Load the JSON data from the specified file path."""
-        try:
-            with open(json_file_path, 'r') as f:
-                return json.load(f)
-        except Exception as e:
-            raise Exception(f"Error loading JSON file: {str(e)}")
 
     def validate_data_against_schema(self, data, schema, is_address=False):
         """Validate the provided data against the given schema, handling both patient and address data."""
@@ -88,12 +81,6 @@ class DataValidationService:
     def validate_all_patients_in_json(self, json_data):
         """Validate all patient entries in the provided JSON data."""
         errors = []
-
-        # # Check if 'Patient' key exists in the root of the JSON
-        # if 'Patients' not in json_data:
-        #     errors.append("Missing 'Patients' key in the JSON.")
-        #     return errors
-
         patients = json_data['Patient']  # Extract the list of patients
 
         # Validate each patient in the list
@@ -106,23 +93,37 @@ class DataValidationService:
         return errors
 
 
-def validate_json_file_against_schema(json_file_path, patient_schema_file, address_schema_file, encounter_schema_file):
-    """Load the JSON file and schemas, then validate the JSON data against the schemas."""
-    # Load expected schema from the JSON schema files
-    with open(patient_schema_file, 'r') as f:
-        patient_schema = json.load(f)
-    with open(encounter_schema_file, 'r') as f:
-        encounter_schema = json.load(f)
-    with open(address_schema_file, 'r') as f:
-        address_schema = json.load(f)
+    #when use this json validation service, here is how you can call it from your program
+    def json_validation(address_schema, encounter_schema, json_sample_data, patient_schema, resource_type_config):
+        # Validate the Resource Type
+        validator_resource_type_service = ResourceTypeValidator(resource_type_config)
+        try:
+            validation_resource_type_result = validator_resource_type_service.validate_json(json_sample_data)
 
-    # Initialize the validation validation_service
-    validator = DataValidationService(patient_schema, encounter_schema, address_schema)
+            # If resource type validation is successful, proceed to schema validation
+            if validation_resource_type_result["status"] == "success":
+                print("Resource type validation passed.")
+                print(validation_resource_type_result["message"])
 
-    # Load and validate the JSON data
+                # Call  with the loaded JSON data and schemas
+                validate_json_data_against_schema(json_sample_data, patient_schema, encounter_schema)
+            else:
+                # If resource type validation fails, raise an error
+                print(f"Resource type validation failed: {validation_resource_type_result['message']}")
+                raise ValueError(f"Resource type validation failed: {validation_resource_type_result['message']}")
+
+        except Exception as e:
+            print(f"An error occurred during resource type validation: {str(e)}")
+
+
+def validate_json_data_against_schema(json_sample_data, resource_type_config, patient_schema, encounter_schema,address_schema):
+    """Validate the JSON data against the provided schemas."""
+    # Initialize the validation service
+    validator = DataValidationService(json_sample_data, resource_type_config, patient_schema, encounter_schema,address_schema)
+
+    # Validate the JSON data
     try:
-        json_data = validator.load_json_data_from_file(json_file_path)
-        validation_errors = validator.validate_all_patients_in_json(json_data)
+        validation_errors = validator.validate_all_patients_in_json(json_sample_data)
 
         # Output validation results
         if validation_errors:
@@ -131,41 +132,6 @@ def validate_json_file_against_schema(json_file_path, patient_schema_file, addre
                 print(f"- {error}")
         else:
             print("JSON is valid against the schema.")
-
     except Exception as e:
         print(f"An error occurred: {str(e)}")
-
-
-def main():
-
-    # Get the current working directory
-    current_directory = os.getcwd()
-
-    # Combine current directory with the file names to form the full paths
-    json_file_path = os.path.join(current_directory, './sample_data/sample_bad.json')
-
-    resource_type_config_file_path = os.path.join(current_directory, './schema/resource-type-config.json')
-    patient_schema_file = os.path.join(current_directory, './schema/patient-config-schema.json')
-    address_schema_file = os.path.join(current_directory, './schema/patient-address-schema-config.json')
-    encounter_schema_file = os.path.join(current_directory, './schema/encounter-schema-config.json')
-
-    # Validate the Resource Type first
-    # Create an instance of ResourceTypeValidator
-    validator_resource_type_service = ResourceTypeValidator(resource_type_config_file_path)
-
-    # Validate the resource types in the JSON file
-    validation_resource_type_result, message = validator_resource_type_service.validate_json(json_file_path)
-
-    # If resource type validation is successful, proceed to schema validation
-    if validation_resource_type_result:
-        print("Resource type validation passed.")
-        print(message)
-
-        # Call validate_json_file_against_schema if resource types are valid
-        validate_json_file_against_schema(json_file_path, patient_schema_file,
-                                          address_schema_file, encounter_schema_file)
-    else:
-        # If resource type validation fails, raise an error
-        print(f"Resource type validation failed: {message}")
-        raise ValueError(f"Resource type validation failed: {message}")
 

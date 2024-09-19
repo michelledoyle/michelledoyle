@@ -1,30 +1,30 @@
 {
   "AddressID": {
-    "type": "str",
+    "type": "string",
     "required": true
   },
   "PatientID": {
-    "type": "str",
+    "type": "string",
     "required": true
   },
   "AddressLine1": {
-    "type": "str",
+    "type": "string",
     "required": true
   },
   "AddressLine2": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "City": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "State": {
-    "type": "str",
+    "type": "string",
     "required": false
   },
   "ZipCode": {
-    "type": "str",
+    "type": "string",
     "required": false
   }
 }
