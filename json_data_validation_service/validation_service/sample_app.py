@@ -17,7 +17,7 @@ def main():
     current_directory = os.getcwd()
 
     # Combine current directory with the file names to form the full paths
-    json_sample_file_path = os.path.join(current_directory, '../sample_data/sample_good.json')
+    json_sample_file_path = os.path.join(current_directory, '../sample_data/sample.json')
 
     json_sample_data = load_json_data_from_file(json_sample_file_path)
 

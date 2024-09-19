@@ -5,7 +5,8 @@ from validate_resource_types import ResourceTypeValidator
 
 class DataValidationService:
 
-    def __init__(self,json_sample_data, resource_type_config=None, patient_schema=None,encounter_schema=None,address_schema=None):
+    def __init__(self,json_sample_data, resource_type_config=None,
+                 patient_schema=None,encounter_schema=None,address_schema=None):
         self.json_sample_data = json_sample_data
         self.resource_type_config = resource_type_config
         self.patient_schema = self.convert_schema_field_types(patient_schema)
@@ -46,13 +47,13 @@ class DataValidationService:
         if json_data.get('Patient') is not None:
             patient_required_fields = [field for field, attributes in self.patient_schema.items() if attributes['required']]
             for field in patient_required_fields:
-                if field not in json_data["Patient"] :
+                if field not in json_data["Patient"][0] :
                     errors.append(f"Missing field: {field}")
 
         if json_data.get('Encounter') is not None:
             patient_required_fields = [field for field, attributes in self.encounter_schema.items() if attributes['required']]
             for field in patient_required_fields:
-                if field not in json_data["Encounter"] :
+                if field not in json_data["Encounter"][0] :
                     errors.append(f"Missing field: {field}")
 
         # Validate PatientAddress fields
@@ -105,20 +106,24 @@ def validate_json_data_against_schema(json_sample_data):
     current_directory = os.getcwd()
 
     # Combine current directory with the file names to form the full paths
-    json_sample_file_path = os.path.join(current_directory, '../sample_data/sample_bad.json')
+    json_sample_file_path = os.path.join(current_directory, '../sample_data/sample.json')
     resource_type_config_file_path = os.path.join(current_directory, '../schema/resource-type-config.json')
     patient_schema_file = os.path.join(current_directory, '../schema/patient-config-schema.json')
-    address_schema_file = os.path.join(current_directory, '../schema/patient-address-schema-config.json')
     encounter_schema_file = os.path.join(current_directory, '../schema/encounter-schema-config.json')
+    address_schema_file = os.path.join(current_directory, '../schema/patient-address-schema-config.json')
 
     resource_type_config = load_json_schema_data_from_file(resource_type_config_file_path)
     patient_schema = load_json_schema_data_from_file(patient_schema_file)
-    address_schema = load_json_schema_data_from_file(address_schema_file)
     encounter_schema = load_json_schema_data_from_file(encounter_schema_file)
+    address_schema = load_json_schema_data_from_file(address_schema_file)
 
     # Initialize the validation services
-    validator = DataValidationService(patient_schema, encounter_schema, address_schema, encounter_schema,
-                                      address_schema)
+    validator = DataValidationService(json_sample_data,
+                                      resource_type_config=resource_type_config,
+                                      patient_schema=patient_schema,
+                                      encounter_schema=encounter_schema,
+                                      address_schema=address_schema)
+
     resource_type_validator = ResourceTypeValidator(resource_type_config)
 
     try:
