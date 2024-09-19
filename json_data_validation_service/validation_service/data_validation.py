@@ -2,6 +2,7 @@ import json
 import os
 
 from validate_resource_types import ResourceTypeValidator
+from category import Category
 
 class DataValidationService:
 
@@ -47,10 +48,10 @@ class DataValidationService:
 
         # Define a dictionary mapping each section to its corresponding schema
         section_mapping = {
-            "Patient": self.patient_schema,
-            "Encounter": self.encounter_schema,
-            "PatientAddress": self.address_schema,
-            "PatientPhone": self.phone_schema
+            Category.PATIENT.value: self.patient_schema,
+            Category.ENCOUNTER.value: self.encounter_schema,
+            Category.PATIENT_ADDRESS.value: self.address_schema,
+            Category.PATIENT_PHONE.value: self.phone_schema
         }
 
         def validate_fields(json_section, schema, section_name):

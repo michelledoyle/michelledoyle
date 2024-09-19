@@ -8,7 +8,8 @@
       "PatientAddress": [
         {
         "AddressID": "address112233",
-
+        "PatientID": "123e4567",
+        "AddressLine1": "123 Main St",
         "AddressLine2": "Apt 4B",
         "City": "Wichita",
         "State": "KS",
