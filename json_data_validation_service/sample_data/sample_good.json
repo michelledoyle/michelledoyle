@@ -1,0 +1,57 @@
+{
+  "Patients": [
+    {
+      "PatientID": "123e4567",
+      "FirstName": "Tom",
+      "LastName": "Chen",
+      "Gender": "Male",
+      "PatientAddress": {
+        "AddressID": "abc12345",
+        "PatientID": "123e4567",
+        "AddressLine1": "123 Main St",
+        "AddressLine2": "Apt 4B",
+        "City": "Springfield",
+        "State": "IL",
+        "ZipCode": "62704"
+      },
+      "PatientPhone": [
+        {
+          "PhoneID": "phone12345",
+          "PatientID": "123e4567",
+          "PhoneNumber": "555-1234",
+          "PhoneType": "Mobile"
+        },
+        {
+          "PhoneID": "phone67890",
+          "PatientID": "123e4567",
+          "PhoneNumber": "555-5678",
+          "PhoneType": "Home"
+        }
+      ]
+    },
+    {
+      "PatientID": "123e4444",
+      "FirstName": "Jack",
+      "LastName": "Chen",
+      "Gender": "Male",
+      "PatientAddress": {
+        "AddressID": "abc123333",
+        "PatientID": "123e4444",
+        "AddressLine1": "456 Elm St",
+        "AddressLine2": "Apt 5C",
+        "City": "Springfield",
+        "State": "IL",
+        "ZipCode": "62705"
+      }
+    }
+  ],
+  "Encounter": [
+    {
+      "Encounter Bk": "123e4567",
+      "Tenant Nm": "T223344",
+      "Source Nm": "S223355",
+      "Patient Type": "Self-Pay",
+      "Encounter Num": "FIN19900099"
+    }
+  ]
+}

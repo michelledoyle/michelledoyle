@@ -1,0 +1,30 @@
+{
+  "AddressID": {
+    "type": "str",
+    "required": true
+  },
+  "PatientID": {
+    "type": "str",
+    "required": true
+  },
+  "AddressLine1": {
+    "type": "str",
+    "required": true
+  },
+  "AddressLine2": {
+    "type": "str",
+    "required": false
+  },
+  "City": {
+    "type": "str",
+    "required": false
+  },
+  "State": {
+    "type": "str",
+    "required": false
+  },
+  "ZipCode": {
+    "type": "str",
+    "required": false
+  }
+}

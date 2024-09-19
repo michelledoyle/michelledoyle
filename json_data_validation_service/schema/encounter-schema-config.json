@@ -1,0 +1,22 @@
+{
+  "Encounter Bk": {
+    "type": "str",
+    "required": true
+  },
+  "Tenant Nm": {
+    "type": "str",
+    "required": false
+  },
+  "Source Nm": {
+    "type": "str",
+    "required": false
+  },
+  "Patient Type": {
+    "type": "str",
+    "required": false
+  },
+  "Encounter Num": {
+    "type": "str",
+    "required": true
+  }
+}
