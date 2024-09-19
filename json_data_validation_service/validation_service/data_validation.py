@@ -67,19 +67,19 @@ class DataValidationService:
             )
 
         # Loop through each section and validate
-        for section, schema in section_mapping.items():
-            if section == "Patient" and "Patient" in json_data:
-                validate_fields(json_data["Patient"], schema, section)
-            elif section == "Encounter" and "Encounter" in json_data:
-                validate_fields(json_data["Encounter"], schema, section)
+        for category, schema in section_mapping.items():
+            if category == "Patient" and "Patient" in json_data:
+                validate_fields(json_data["Patient"], schema, category)
+            elif category == "Encounter" and "Encounter" in json_data:
+                validate_fields(json_data["Encounter"], schema, category)
             else:
                 # Validate nested sections like PatientAddress and PatientPhone
                 if "Patient" in json_data:
-                    nested_section = json_data["Patient"][0].get(section)
+                    nested_section = json_data["Patient"][0].get(category)
                     if nested_section is None:
-                        errors.append(f"{section} is null.")
+                        errors.append(f"{category} is null.")
                     else:
-                        validate_fields(nested_section, schema, section)
+                        validate_fields(nested_section, schema, category)
 
         return errors
 
