@@ -43,36 +43,71 @@ class DataValidationService:
 
         return schema
 
-    def validate_data_against_schema(self, data, schema, is_address=False):
-        """Validate the provided data against the given schema, handling both patient and address data."""
+    def validate_individual_patient_data(self, patient_data):
         errors = []
-        for field, rules in schema.items():
-            # Check if required field is present
-            if rules.get("required") and field not in data:
-                errors.append(f"Missing required field: {field}")
-                continue
 
-            # If field exists, validate its type
-            if field in data:
-                value = data[field]
-                expected_type = rules["type"]
-                if not isinstance(value, expected_type):
-                    errors.append(
-                        f"Field '{field}' has wrong type. Expected {expected_type.__name__}, got {type(value).__name__}")
+        # Check for required fields
+        patient_required_fields = [field for field, attributes in self.patient_schema.items() if attributes['required']]
+        for field in patient_required_fields:
+            if field not in patient_data:
+                errors.append(f"Missing field: {field}")
 
-                # Validate nested objects, including PatientAddress
-                if expected_type == dict and "properties" in rules:
-                    if field == "PatientAddress" and is_address is False:
-                        # Use address schema for PatientAddress validation
-                        nested_errors = self.validate_data_against_schema(value, self.address_schema, is_address=True)
-                    else:
-                        # Validate regular nested objects
-                        nested_errors = self.validate_data_against_schema(value, rules["properties"])
+        # Validate PatientAddress fields
+        address_required_fields = [field for field, attributes in self.address_schema.items() if attributes['required']]
+        address = patient_data.get('PatientAddress', {})
+        for field in address_required_fields:
+            if field not in address:
+                errors.append(f"Missing address field: {field}")
 
-                    if nested_errors:
-                        errors.append(f"Errors in nested field '{field}':")
-                        errors.extend(nested_errors)
+        # encounter_required_fields = [field for field, attributes in self.encounter_schema.items() if attributes['required']]
+        # address = patient_data.get('PatientAddress', {})
+        # for field in encounter_required_fields:
+        #     if field not in address:
+        #         errors.append(f"Missing address field: {field}")
+
+        # # Validate PatientPhone if present
+        # if 'PatientPhone' in patient_data:
+        #     for phone in patient_data['PatientPhone']:
+        #         if not isinstance(phone, dict):
+        #             errors.append("Invalid format in PatientPhone")
+        #         else:
+        #             required_phone_fields = ['PhoneID', 'PhoneNumber', 'PhoneType']
+        #             for field in required_phone_fields:
+        #                 if field not in phone:
+        #                     errors.append(f"Missing phone field: {field}")
+
         return errors
+
+    # def validate_data_against_schema(self, data, schema, is_address=False):
+    #     """Validate the provided data against the given schema, handling both patient and address data."""
+    #     errors = []
+    #     for field, rules in schema.items():
+    #         # Check if required field is present
+    #         if rules.get("required") and field not in data:
+    #             errors.append(f"Missing required field: {field}")
+    #             continue
+    #
+    #         # If field exists, validate its type
+    #         if field in data:
+    #             value = data[field]
+    #             expected_type = rules["type"]
+    #             if not isinstance(value, expected_type):
+    #                 errors.append(
+    #                     f"Field '{field}' has wrong type. Expected {expected_type.__name__}, got {type(value).__name__}")
+    #
+    #             # Validate nested objects, including PatientAddress
+    #             if expected_type == dict and "properties" in rules:
+    #                 if field == "PatientAddress" and is_address is False:
+    #                     # Use address schema for PatientAddress validation
+    #                     nested_errors = self.validate_data_against_schema(value, self.address_schema, is_address=True)
+    #                 else:
+    #                     # Validate regular nested objects
+    #                     nested_errors = self.validate_data_against_schema(value, rules["properties"])
+    #
+    #                 if nested_errors:
+    #                     errors.append(f"Errors in nested field '{field}':")
+    #                     errors.extend(nested_errors)
+    #     return errors
 
     def validate_individual_patient_data(self, patient_data):
         """Validate individual patient data using the patient schema."""
@@ -116,10 +151,12 @@ class DataValidationService:
             print(f"An error occurred during resource type validation: {str(e)}")
 
 
-def validate_json_data_against_schema(json_sample_data, patient_schema, encounter_schema):
+
+
+def validate_json_data_against_schema(json_sample_data, resource_type_config, patient_schema, encounter_schema,address_schema):
     """Validate the JSON data against the provided schemas."""
     # Initialize the validation service
-    validator = DataValidationService(json_sample_data, patient_schema, encounter_schema)
+    validator = DataValidationService(json_sample_data, resource_type_config, patient_schema, encounter_schema,address_schema)
 
     # Validate the JSON data
     try:
