@@ -116,10 +116,10 @@ class DataValidationService:
             print(f"An error occurred during resource type validation: {str(e)}")
 
 
-def validate_json_data_against_schema(json_sample_data, resource_type_config, patient_schema, encounter_schema,address_schema):
+def validate_json_data_against_schema(json_sample_data, patient_schema, encounter_schema):
     """Validate the JSON data against the provided schemas."""
     # Initialize the validation service
-    validator = DataValidationService(json_sample_data, resource_type_config, patient_schema, encounter_schema,address_schema)
+    validator = DataValidationService(json_sample_data, patient_schema, encounter_schema)
 
     # Validate the JSON data
     try:
