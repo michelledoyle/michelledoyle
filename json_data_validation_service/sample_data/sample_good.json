@@ -28,21 +28,6 @@
           "PhoneType": "Home"
         }
       ]
-    },
-    {
-      "PatientID": "123e4444",
-      "FirstName": "Jack",
-      "LastName": "Chen",
-      "Gender": "Male",
-      "PatientAddress": {
-        "AddressID": "abc123333",
-        "PatientID": "123e4444",
-        "AddressLine1": "456 Elm St",
-        "AddressLine2": "Apt 5C",
-        "City": "Springfield",
-        "State": "IL",
-        "ZipCode": "62705"
-      }
     }
   ],
   "Encounter": [
