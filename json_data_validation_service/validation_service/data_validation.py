@@ -32,30 +32,14 @@ class DataValidationService:
                 # Process nested fields
                 field_rules["properties"] = self.convert_schema_field_types(field_rules["properties"])
 
-            # Process nested PatientAddress field
-            if field_rules.get("type") == "PatientAddress":
-                # Treat it as a dictionary of fields
-                field_rules["type"] = dict
-                if "properties" in field_rules:
-                    field_rules["properties"] = self.convert_schema_field_types(field_rules["properties"])
-
         # Convert types in the main schema
         for field, rules in schema.items():
             process_schema_field(rules)
 
         return schema
 
-    def validate_individual_data(self, non_patient_data):
-        errors = []
-        # Check for required fields
-        required_fields = [field for field, attributes in self.patient_schema.items() if attributes['required']]
-        for field in required_fields:
-            if field not in non_patient_data:
-                errors.append(f"Missing field: {field}")
 
-        return errors
-
-    def validate_individual_patient_data(self, json_data):
+    def validate_individual_data(self, json_data):
         errors = []
 
         # Check for required fields
@@ -145,9 +129,7 @@ def validate_json_data_against_schema(json_sample_data):
             return {"status": "failed", "message": "Resource type validation failed."}
 
         # Validate the JSON data against schemas
-        validation_errors = validator.validate_individual_patient_data(json_sample_data)
-        # Uncomment the next line if encounter validation is also needed
-        # validation_errors.extend(validator.validate_all_encounters_in_json(json_sample_data))
+        validation_errors = validator.validate_individual_data(json_sample_data)
 
         # Check if there are validation errors
         if validation_errors:
