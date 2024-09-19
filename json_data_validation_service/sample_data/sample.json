@@ -9,8 +9,8 @@
         {
         "AddressID": "address112233",
         "PatientID": "123e4567",
-        "AddressLine1": "123 Main St",
-        "AddressLine2": "Apt 4B",
+        "AddressLine1": "3000 Main St",
+        "AddressLine2": "2400 Main St.",
         "City": "Wichita",
         "State": "KS",
         "ZipCode": "67207"
@@ -18,8 +18,8 @@
        {
         "AddressID": "address6699",
         "PatientID": "123e4567",
-        "AddressLine1": "123 Main St",
-        "AddressLine2": "Apt 4B",
+        "AddressLine1": "5000 Walnut St",
+        "AddressLine2": "PO BOX 4B",
         "City": "Springfield",
         "State": "IL",
         "ZipCode": "62704"
