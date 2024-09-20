@@ -2,7 +2,7 @@ import json
 import os
 
 from validate_resource_types import ResourceTypeValidator
-from category import Category
+from json_data_validation_service.schema.category import Category
 
 class DataValidationService:
 

@@ -1,22 +1,380 @@
 {
-  "PatientID": {
-    "type": "string",
-    "required": true
-  },
-  "FirstName": {
-    "type": "string",
-    "required": false
-  },
-  "LastName": {
-    "type": "string",
-    "required": false
-  },
-  "AddressID": {
-    "type": "string",
-    "required": false
-  },
-  "Gender": {
-    "type": "string",
-    "required": false
+  "Patient": {
+    "Info": {
+      "PatientBk": {
+        "type": "string",
+        "required": true
+      },
+      "ActiveInd": {
+        "type": "boolean",
+        "required": false
+      },
+      "PatientId": {
+        "type": "string",
+        "required": false
+      },
+      "FirstNm": {
+        "type": "string",
+        "required": false
+      },
+      "LastNm": {
+        "type": "string",
+        "required": false
+      },
+      "MiddleNm": {
+        "type": "string",
+        "required": false
+      },
+      "SuffixNm": {
+        "type": "string",
+        "required": false
+      },
+      "BirthTs": {
+        "type": "string",
+        "required": false,
+        "format": "date"
+      },
+      "MaritalStatus": {
+        "type": "string",
+        "required": false
+      },
+      "MultipleBirthInd": {
+        "type": "string",
+        "required": false
+      },
+      "BirthOrder": {
+        "type": "integer",
+        "required": false
+      },
+      "AdministrativeSex": {
+        "type": "string",
+        "required": false
+      },
+      "BirthSex": {
+        "type": "string",
+        "required": false
+      },
+      "Race1Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Race1Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Race2Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Race2Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Race3Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Race3Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Ethnicity1Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Ethnicity1Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Ethnicity2Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Ethnicity2Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Ethnicity3Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Ethnicity3Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Language1Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Language1Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Language1PreferenceInd": {
+        "type": "string",
+        "required": false
+      },
+      "Language2Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Language2Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Language2PreferenceInd": {
+        "type": "string",
+        "required": false
+      },
+      "Language3Cd": {
+        "type": "string",
+        "required": false
+      },
+      "Language3Descr": {
+        "type": "string",
+        "required": false
+      },
+      "Language3PreferenceInd": {
+        "type": "string",
+        "required": false
+      },
+      "SourceTransactionNm": {
+        "type": "string",
+        "required": false
+      },
+      "SourceTransactionTs": {
+        "type": "string",
+        "required": false,
+        "format": "date-time"
+      },
+      "ServiceAccountId": {
+        "type": "string",
+        "required": false
+      },
+      "TenantNm": {
+        "type": "string",
+        "required": false
+      },
+      "SourceNm": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "Address": {
+      "type": "array",
+      "required": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "ActiveInd": {
+            "type": "string",
+            "required": false
+          },
+          "AddressType": {
+            "type": "string",
+            "required": false
+          },
+          "AddressUse": {
+            "type": "string",
+            "required": false
+          },
+          "AddressLine1Descr": {
+            "type": "string",
+            "required": false
+          },
+          "AddressLine2Descr": {
+            "type": "string",
+            "required": false
+          },
+          "AddressLine3Descr": {
+            "type": "string",
+            "required": false
+          },
+          "AddressLine4Descr": {
+            "type": "string",
+            "required": false
+          },
+          "CityNm": {
+            "type": "string",
+            "required": false
+          },
+          "StateProvinceCd": {
+            "type": "string",
+            "required": false
+          },
+          "PostalCd": {
+            "type": "string",
+            "required": false
+          },
+          "CountryNm": {
+            "type": "string",
+            "required": false
+          },
+          "SourceTransactionNm": {
+            "type": "string",
+            "required": false
+          },
+          "SourceTransactionTs": {
+            "type": "string",
+            "required": false,
+            "format": "date-time"
+          },
+          "ServiceAccountId": {
+            "type": "string",
+            "required": false
+          },
+          "TenantNm": {
+            "type": "string",
+            "required": false
+          },
+          "SourceNm": {
+            "type": "string",
+            "required": false
+          }
+        },
+        "required": []
+      }
+    },
+    "Identification": {
+      "type": "array",
+      "required": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "ActiveInd": {
+            "type": "string",
+            "required": false
+          },
+          "IdType": {
+            "type": "string",
+            "required": false
+          },
+          "IdSystem": {
+            "type": "string",
+            "required": false
+          },
+          "IdNum": {
+            "type": "string",
+            "required": false
+          },
+          "StateCd": {
+            "type": "string",
+            "required": false
+          },
+          "CountryCd": {
+            "type": "string",
+            "required": false
+          },
+          "SourceTransactionNm": {
+            "type": "string",
+            "required": false
+          },
+          "SourceTransactionTs": {
+            "type": "string",
+            "required": false,
+            "format": "date-time"
+          },
+          "ServiceAccountId": {
+            "type": "string",
+            "required": false
+          },
+          "TenantNm": {
+            "type": "string",
+            "required": false
+          },
+          "SourceNm": {
+            "type": "string",
+            "required": false
+          }
+        },
+        "required": []
+      }
+    },
+    "Phone": {
+      "type": "array",
+      "required": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "ActiveInd": {
+            "type": "string",
+            "required": false
+          },
+          "PhoneSystem": {
+            "type": "string",
+            "required": false
+          },
+          "PhoneUse": {
+            "type": "string",
+            "required": false
+          },
+          "PhoneNum": {
+            "type": "string",
+            "required": false
+          },
+          "SourceTransactionNm": {
+            "type": "string",
+            "required": false
+          },
+          "SourceTransactionTs": {
+            "type": "string",
+            "required": false,
+            "format": "date-time"
+          },
+          "ServiceAccountId": {
+            "type": "string",
+            "required": false
+          },
+          "TenantNm": {
+            "type": "string",
+            "required": false
+          },
+          "SourceNm": {
+            "type": "string",
+            "required": false
+          }
+        },
+        "required": []
+      }
+    },
+    "Email": {
+      "type": "array",
+      "required": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "ActiveInd": {
+            "type": "string",
+            "required": false
+          },
+          "EmailUse": {
+            "type": "string",
+            "required": false
+          },
+          "EmailAddress": {
+            "type": "string",
+            "required": false
+          },
+          "SourceTransactionNm": {
+            "type": "string",
+            "required": false
+          },
+          "SourceTransactionTs": {
+            "type": "string",
+            "required": false,
+            "format": "date-time"
+          },
+          "ServiceAccountId": {
+            "type": "string",
+            "required": false
+          },
+          "TenantNm": {
+            "type": "string",
+            "required": false
+          }
+        }
+      }
+    }
   }
 }
+

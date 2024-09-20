@@ -1,7 +1,6 @@
 import json
 import os
-from data_validation import validate_json_data_against_schema
-
+from json_data_validator import validate_patient_data
 
 def load_json_data_from_file(json_file_path):
     """Load the JSON data from the specified file path."""
@@ -17,12 +16,12 @@ def main():
     current_directory = os.getcwd()
 
     # Combine current directory with the file names to form the full paths
-    json_input_file_path = os.path.join(current_directory, '../input_data/input.json')
+    json_input_file_path = os.path.join(current_directory, '../input_data/patient.json')
 
     json_input_data = load_json_data_from_file(json_input_file_path)
 
-    results = validate_json_data_against_schema(json_input_data)
-    print(results)
+    result = validate_patient_data(json_input_data)
+    print(result)
 # Entry point
 if __name__ == "__main__":
     main()

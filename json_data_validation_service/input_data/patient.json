@@ -1,0 +1,154 @@
+{
+    "Patient": {
+        "Info": {
+            "PatientBk": "PBK123456",
+            "ActiveInd": "test",
+            "PatientId": "P0001",
+            "FirstNm": "John",
+            "LastNm": "Fox",
+            "MiddleNm": "A",
+            "SuffixNm": "Jr.",
+            "BirthTs": "1985-07-23",
+
+            "MultipleBirthInd": "N",
+            "BirthOrder": 1,
+            "AdministrativeSex": "M",
+            "BirthSex": "M",
+            "Race1Cd": "2106-3",
+            "Race1Descr": "White",
+            "Race2Cd": "2028-9",
+            "Race2Descr": "Black or African American",
+            "Race3Cd": "NONE",
+            "Race3Descr": "None",
+            "Ethnicity1Cd": "2186-5",
+            "Ethnicity1Descr": "Not Hispanic or Latino",
+            "Ethnicity2Cd": "NONE",
+            "Ethnicity2Descr": "None",
+            "Ethnicity3Cd": "NONE",
+            "Ethnicity3Descr": "None",
+            "Language1Cd": "en",
+            "Language1Descr": "English",
+            "Language1PreferenceInd": "Y",
+            "Language2Cd": "es",
+            "Language2Descr": "Spanish",
+            "Language2PreferenceInd": "N",
+            "Language3Cd": "NONE",
+            "Language3Descr": "None",
+            "Language3PreferenceInd": "N",
+            "SourceTransactionNm": "AdmissionForm",
+            "SourceTransactionTs": "2024-01-15T10:30:00Z",
+            "ServiceAccountId": "SA123456",
+            "TenantNm": "HealthCareTenant",
+            "SourceNm": "HospitalSystem"
+        },
+        "Address": [
+            {
+                "ActiveInd": "Y",
+                "AddressType": "Home",
+                "AddressUse": "Primary",
+                "AddressLine1Descr": "123 Main St",
+                "AddressLine2Descr": "Apt 4B",
+                "AddressLine3Descr": "",
+                "AddressLine4Descr": "",
+                "CityNm": "Springfield",
+                "StateProvinceCd": "IL",
+                "PostalCd": "62704",
+                "CountryNm": "USA",
+                "SourceTransactionNm": "AdmissionForm",
+                "SourceTransactionTs": "2024-01-15T10:30:00Z",
+                "ServiceAccountId": "SA123456",
+                "TenantNm": "HealthCareTenant",
+                "SourceNm": "HospitalSystem"
+            },
+            {
+                "ActiveInd": "N",
+                "AddressType": "Work",
+                "AddressUse": "Secondary",
+                "AddressLine1Descr": "456 Corporate Blvd",
+                "AddressLine2Descr": "Suite 800",
+                "AddressLine3Descr": "",
+                "AddressLine4Descr": "",
+                "CityNm": "Chicago",
+                "StateProvinceCd": "IL",
+                "PostalCd": "60601",
+                "CountryNm": "USA",
+                "SourceTransactionNm": "WorkUpdate",
+                "SourceTransactionTs": "2024-02-20T14:45:00Z",
+                "ServiceAccountId": "SA123456",
+                "TenantNm": "HealthCareTenant",
+                "SourceNm": "HospitalSystem"
+            }
+        ],
+        "Identification": [
+            {
+                "ActiveInd": "Y",
+                "IdType": "SSN",
+                "IdSystem": "SSS",
+                "IdNum": "123-45-6789",
+                "SourceTransactionNm": "AdmissionForm",
+                "SourceTransactionTs": "2024-01-15T10:30:00Z",
+                "ServiceAccountId": "SA123456",
+                "TenantNm": "HealthCareTenant",
+                "SourceNm": "HospitalSystem"
+            },
+            {
+                "ActiveInd": "Y",
+                "IdType": "DriverLicense",
+                "IdSystem": "DMV",
+                "IdNum": "D1234567",
+                "StateCd": "IL",
+                "SourceTransactionNm": "LicenseUpdate",
+                "SourceTransactionTs": "2024-03-05T12:00:00Z",
+                "ServiceAccountId": "SA123456",
+                "TenantNm": "HealthCareTenant",
+                "SourceNm": "HospitalSystem"
+            }
+        ],
+        "Phone": [
+            {
+                "ActiveInd": "Y",
+                "PhoneSystem": "Mobile",
+                "PhoneUse": "Primary",
+                "PhoneNum": "+1-555-123-4567",
+                "SourceTransactionNm": "AdmissionForm",
+                "SourceTransactionTs": "2024-01-15T10:30:00Z",
+                "ServiceAccountId": "SA123456",
+                "TenantNm": "HealthCareTenant",
+                "SourceNm": "HospitalSystem"
+            },
+            {
+                "ActiveInd": "N",
+                "PhoneSystem": "Landline",
+                "PhoneUse": "Secondary",
+                "PhoneNum": "+1-555-765-4321",
+                "SourceTransactionNm": "PhoneUpdate",
+                "SourceTransactionTs": "2024-03-10T09:15:00Z",
+                "ServiceAccountId": "SA123456",
+                "TenantNm": "HealthCareTenant",
+                "SourceNm": "HospitalSystem"
+            }
+        ],
+        "Email": [
+            {
+                "ActiveInd": "Y",
+                "EmailUse": "Personal",
+                "EmailAddress": "john.doe@example.com",
+                "SourceTransactionNm": "AdmissionForm",
+                "SourceTransactionTs": "2024-01-15T10:30:00Z",
+                "ServiceAccountId": "SA123456",
+                "TenantNm": "HealthCareTenant",
+                "SourceNm": "HospitalSystem"
+            },
+            {
+                "ActiveInd": "N",
+                "EmailUse": "Work",
+                "EmailAddress": "j.doe@corporate.com",
+                "SourceTransactionNm": "EmailUpdate",
+                "SourceTransactionTs": "2024-04-05T11:00:00Z",
+                "ServiceAccountId": "SA123456",
+                "TenantNm": "HealthCareTenant",
+                "SourceNm": "HospitalSystem"
+            }
+        ]
+    }
+}
