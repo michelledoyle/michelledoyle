@@ -92,8 +92,7 @@ def load_schema(file_path):
 def load_data(file_path):
     with open(file_path, 'r') as f:
         return json.load(f)
-
-def validate_patient_data( json_input_data):
+def validate_patient_data(json_input_data):
     # Get the directory of the current file
     current_dir = os.path.dirname(__file__)
 
@@ -107,18 +106,18 @@ def validate_patient_data( json_input_data):
 
     try:
         if not check_required_attributes(json_input_data['Patient']):
-            return "JSON is invalid: At least one of Info, Address, Identification, Email, or Phone is required."
+            return {"status": "failed", "message": "JSON is invalid: At least one of Info, Address, Identification, Email, or Phone is required."}
 
         is_valid, error_message = validate_json(json_input_data, schema)
 
         if is_valid:
-            return "JSON is valid!"
+            return {"status": "success", "message": "JSON is valid!"}
         else:
-            return f"JSON is invalid: {error_message}"
+            return {"status": "failed", "message": f"JSON is invalid: {error_message}"}
 
     except json.JSONDecodeError:
-        return "JSON is invalid: Invalid JSON format."
+        return {"status": "failed", "message": "JSON is invalid: Invalid JSON format."}
     except KeyError as e:
-        return f"JSON is invalid: Missing required key {str(e)}."
+        return {"status": "failed", "message": f"JSON is invalid: Missing required key {str(e)}."}
     except Exception as e:
-        return f"An unexpected error occurred: {str(e)}."
+        return {"status": "failed", "message": f"An unexpected error occurred: {str(e)}."}
