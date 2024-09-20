@@ -17,11 +17,11 @@ def main():
     current_directory = os.getcwd()
 
     # Combine current directory with the file names to form the full paths
-    json_sample_file_path = os.path.join(current_directory, '../sample_data/sample.json')
+    json_input_file_path = os.path.join(current_directory, '../input_data/input.json')
 
-    json_sample_data = load_json_data_from_file(json_sample_file_path)
+    json_input_data = load_json_data_from_file(json_input_file_path)
 
-    results = validate_json_data_against_schema(json_sample_data)
+    results = validate_json_data_against_schema(json_input_data)
     print(results)
 # Entry point
 if __name__ == "__main__":

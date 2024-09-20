@@ -6,11 +6,11 @@ from category import Category
 
 class DataValidationService:
 
-    def __init__(self,json_sample_data, resource_type_config=None,
+    def __init__(self,json_input_data, resource_type_config=None,
                  patient_schema=None,encounter_schema=None,
                  address_schema=None, phone_schema=None
                  ):
-        self.json_sample_data = json_sample_data
+        self.json_input_data = json_input_data
         self.resource_type_config = resource_type_config
         self.patient_schema = self.convert_schema_field_types(patient_schema)
         self.encounter_schema = self.convert_schema_field_types(encounter_schema)
@@ -84,11 +84,11 @@ class DataValidationService:
         return errors
 
     #when use this json validation service, here is how you can call it from your program
-    def json_validation(address_schema, encounter_schema, json_sample_data, patient_schema, resource_type_config):
+    def json_validation(address_schema, encounter_schema, json_input_data, patient_schema, resource_type_config):
         # Validate the Resource Type
         validator_resource_type_service = ResourceTypeValidator(resource_type_config)
         try:
-            validation_resource_type_result = validator_resource_type_service.validate_json(json_sample_data)
+            validation_resource_type_result = validator_resource_type_service.validate_json(json_input_data)
 
             # If resource type validation is successful, proceed to schema validation
             if validation_resource_type_result["status"] == "success":
@@ -96,7 +96,7 @@ class DataValidationService:
                 print(validation_resource_type_result["message"])
 
                 # Call  with the loaded JSON data and schemas
-                validate_json_data_against_schema(json_sample_data)
+                validate_json_data_against_schema(json_input_data)
             else:
                 # If resource type validation fails, raise an error
                 print(f"Resource type validation failed: {validation_resource_type_result['message']}")
@@ -114,13 +114,13 @@ def load_json_schema_data_from_file(schema_file_path):
         raise Exception(f"Error loading JSON file: {str(e)}")
 
 
-def validate_json_data_against_schema(json_sample_data):
+def validate_json_data_against_schema(json_input_data):
     """Validate the JSON data against the provided schemas and return result and error message."""
     # Get the current working directory
     current_directory = os.getcwd()
 
     # Combine current directory with the file names to form the full paths
-    json_sample_file_path = os.path.join(current_directory, '../sample_data/sample.json')
+    json_input_file_path = os.path.join(current_directory, '../input_data/input.json')
     resource_type_config_file_path = os.path.join(current_directory, '../schema/resource-type-config.json')
     patient_schema_file = os.path.join(current_directory, '../schema/patient-config-schema.json')
     encounter_schema_file = os.path.join(current_directory, '../schema/encounter-schema-config.json')
@@ -134,7 +134,7 @@ def validate_json_data_against_schema(json_sample_data):
     phone_schema = load_json_schema_data_from_file(phone_schema_file)
 
     # Initialize the validation services
-    validator = DataValidationService(json_sample_data,
+    validator = DataValidationService(json_input_data,
                                       resource_type_config=resource_type_config,
                                       patient_schema=patient_schema,
                                       encounter_schema=encounter_schema,
@@ -146,13 +146,13 @@ def validate_json_data_against_schema(json_sample_data):
 
     try:
         # Validate resource types
-        resource_validation_result = resource_type_validator.validate_json(json_sample_data)
+        resource_validation_result = resource_type_validator.validate_json(json_input_data)
 
         if resource_validation_result["status"] == "failed":
             return {"status": "failed", "message": "Resource type validation failed."}
 
         # Validate the JSON data against schemas
-        validation_errors = validator.validate_individual_data(json_sample_data)
+        validation_errors = validator.validate_individual_data(json_input_data)
 
         # Check if there are validation errors
         if validation_errors:
