@@ -3,7 +3,7 @@
 import json
 import os
 from datetime import datetime
-
+from resource_type import ResourceType
 
 def validate_field(field_value, field_schema, field_name):
     expected_type = field_schema.get('type')
@@ -67,8 +67,17 @@ def validate_json(data, schema, parent_key=""):
     return True, None
 
 
+# Load required attributes from a JSON file
+def load_required_attributes(file_path):
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+        return data.get('required_attributes', [])
+
+
+# Define the function to check required attributes
 def check_required_attributes(data):
-    required_attributes = ['Info', 'Address', 'Identification', 'Email', 'Phone']
+    # Convert enum members to a list for checking
+    required_attributes = [rt.value for rt in ResourceType]
     for attr in required_attributes:
         if attr in data and data[attr]:
             return True
